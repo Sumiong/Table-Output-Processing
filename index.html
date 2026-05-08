@@ -2,49 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Table Output & Processing</title>
+    <title>Data Processing Task</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; }
-        table { border-collapse: collapse; width: 300px; margin-bottom: 30px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        h2 { color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; line-height: 1.6; }
+        table { border-collapse: collapse; width: 350px; margin-bottom: 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
     <h2>Table 1</h2>
-    <table>
-        <tr><th>Index #</th><th>Value</th></tr>
-        <tr><td>A1</td><td>41</td></tr>
-        <tr><td>A2</td><td>18</td></tr>
-        <tr><td>A3</td><td>21</td></tr>
-        <tr><td>A4</td><td>63</td></tr>
-        <tr><td>A5</td><td>2</td></tr>
-        <tr><td>A6</td><td>53</td></tr>
-        <tr><td>A7</td><td>5</td></tr>
-        <tr><td>A8</td><td>57</td></tr>
-        <tr><td>A9</td><td>60</td></tr>
-        <tr><td>A10</td><td>93</td></tr>
-        <tr><td>A11</td><td>28</td></tr>
-        <tr><td>A12</td><td>3</td></tr>
-        <tr><td>A13</td><td>90</td></tr>
-        <tr><td>A14</td><td>39</td></tr>
-        <tr><td>A15</td><td>80</td></tr>
-        <tr><td>A16</td><td>88</td></tr>
-        <tr><td>A17</td><td>49</td></tr>
-        <tr><td>A18</td><td>60</td></tr>
-        <tr><td>A19</td><td>26</td></tr>
-        <tr><td>A20</td><td>28</td></tr>
+    <table id="table1">
+        <thead>
+            <tr><th>Index #</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr data-index="A1"><td>A1</td><td>41</td></tr>
+            <tr data-index="A2"><td>A2</td><td>18</td></tr>
+            <tr data-index="A3"><td>A3</td><td>21</td></tr>
+            <tr data-index="A4"><td>A4</td><td>63</td></tr>
+            <tr data-index="A5"><td>A5</td><td>2</td></tr>
+            <tr data-index="A6"><td>A6</td><td>53</td></tr>
+            <tr data-index="A7"><td>A7</td><td>5</td></tr>
+            <tr data-index="A8"><td>A8</td><td>57</td></tr>
+            <tr data-index="A9"><td>A9</td><td>60</td></tr>
+            <tr data-index="A10"><td>A10</td><td>93</td></tr>
+            <tr data-index="A11"><td>A11</td><td>28</td></tr>
+            <tr data-index="A12"><td>A12</td><td>3</td></tr>
+            <tr data-index="A13"><td>A13</td><td>90</td></tr>
+            <tr data-index="A14"><td>A14</td><td>39</td></tr>
+            <tr data-index="A15"><td>A15</td><td>80</td></tr>
+            <tr data-index="A16"><td>A16</td><td>88</td></tr>
+            <tr data-index="A17"><td>A17</td><td>49</td></tr>
+            <tr data-index="A18"><td>A18</td><td>60</td></tr>
+            <tr data-index="A19"><td>A19</td><td>26</td></tr>
+            <tr data-index="A20"><td>A20</td><td>28</td></tr>
+        </tbody>
     </table>
 
     <h2>Table 2</h2>
     <table>
-        <tr><th>Category</th><th>Value</th></tr>
-        <tr><td>Alpha</td><td>30</td></tr>
-        <tr><td>Beta</td><td>16</td></tr>
-        <tr><td>Charlie</td><td>270</td></tr>
+        <thead>
+            <tr><th>Category</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Alpha</td><td id="val-alpha"></td></tr>
+            <tr><td>Beta</td><td id="val-beta"></td></tr>
+            <tr><td>Charlie</td><td id="val-charlie"></td></tr>
+        </tbody>
     </table>
+
+    <script>
+        // Function to get the value of a cell based on the Index # text
+        function getValue(index) {
+            const rows = document.querySelectorAll('#table1 tbody tr');
+            for (let row of rows) {
+                if (row.cells[0].innerText.trim() === index) {
+                    return parseInt(row.cells[1].innerText);
+                }
+            }
+            return 0;
+        }
+
+        // Logic processing
+        window.onload = function() {
+            // Alpha: A5 + A20
+            const alpha = getValue('A5') + getValue('A20');
+            document.getElementById('val-alpha').innerText = alpha;
+
+            // Beta: A15 / A7
+            const beta = getValue('A15') / getValue('A7');
+            document.getElementById('val-beta').innerText = beta;
+
+            // Charlie: A13 * A12
+            const charlie = getValue('A13') * getValue('A12');
+            document.getElementById('val-charlie').innerText = charlie;
+        };
+    </script>
 
 </body>
 </html>
